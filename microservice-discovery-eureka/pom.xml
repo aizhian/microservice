@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>microservice</artifactId>
+        <groupId>com.genesis</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>microservice-discovery-eureka</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-eureka-server</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+
+            <!--jsw -->
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>2.0.0</version>
+                <configuration>
+                    <configurationDirectory>conf</configurationDirectory>
+                    <includeConfigurationDirectoryInClasspath>true</includeConfigurationDirectoryInClasspath>
+                    <repositoryLayout>flat</repositoryLayout>
+                    <useWildcardClassPath>true</useWildcardClassPath>
+                    <daemons>
+                        <daemon>
+                            <id>eureka</id>
+                            <wrapperMainClass>com.genesis.microservice.discovery.eureka.Application</wrapperMainClass>
+                            <commandLineArguments>
+                                <commandLineArgument>start</commandLineArgument>
+                            </commandLineArguments>
+                            <platforms>
+                                <platform>jsw</platform>
+                            </platforms>
+                            <jvmSettings>
+                                <!-- 启动内存配置 -->
+                                <maxStackSize>128</maxStackSize>
+                                <systemProperties>
+                                    <systemProperty>EUREKA_HOME=.</systemProperty>
+                                </systemProperties>
+                                <extraArguments>
+                                    <extraArgument>-server </extraArgument>
+                                    <extraArgument>-XX:MaxPermSize=64M</extraArgument>
+                                    <extraArgument>-XX:+AggressiveOpts</extraArgument>
+                                    <extraArgument>-XX:MaxDirectMemorySize=2G</extraArgument>
+                                    <extraArgument>-XX:+UseParallelGC</extraArgument>
+                                    <extraArgument>-Xss512K</extraArgument>
+                                    <!-- 远程JMX -->
+                                    <!--<extraArgument>-Dcom.sun.management.jmxremote </extraArgument>-->
+                                    <!--<extraArgument>-Dcom.sun.management.jmxremote.port=1984</extraArgument>-->
+                                    <!--<extraArgument>-Dcom.sun.management.jmxremote.authenticate=false </extraArgument>-->
+                                    <!--<extraArgument>-Dcom.sun.management.jmxremote.ssl=false </extraArgument>-->
+                                    <!--<extraArgument>-Xmx4G</extraArgument>-->
+                                    <!--<extraArgument>-Xms1G</extraArgument>-->
+                                </extraArguments>
+                            </jvmSettings>
+                            <generatorConfigurations>
+                                <generatorConfiguration>
+                                    <generator>jsw</generator>
+                                    <includes>
+                                        <include>aix-ppc-32</include>
+                                        <include>aix-ppc-64</include>
+                                        <include>hpux-parisc-64</include>
+                                        <include>linux-x86-32</include>
+                                        <include>linux-x86-64</include>
+                                        <include>linux-ppc-64</include>
+                                        <include>macosx-ppc-32</include>
+                                        <include>macosx-x86-universal-32</include>
+                                        <include>macosx-universal-32</include>
+                                        <include>macosx-universal-64</include>
+                                        <include>solaris-sparc-32</include>
+                                        <include>solaris-sparc-64</include>
+                                        <include>solaris-x86-32</include>
+                                        <include>windows-x86-32</include>
+                                        <include>windows-x86-64</include>
+                                    </includes>
+
+                                    <configuration>
+                                        <property>
+                                            <name>configuration.directory.in.classpath.first</name>
+                                            <value>conf</value>
+                                        </property>
+                                        <property>
+                                            <name>wrapper.ping.timeout</name>
+                                            <value>30</value>
+                                        </property>
+                                        <property>
+                                            <name>set.default.REPO_DIR</name>
+                                            <value>lib</value>
+                                        </property>
+                                        <property>
+                                            <name>wrapper.logfile</name>
+                                            <value>logs/wrapper.log</value>
+                                        </property>
+                                    </configuration>
+
+                                </generatorConfiguration>
+                            </generatorConfigurations>
+                        </daemon>
+
+                    </daemons>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>generate-jsw</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>generate-daemons</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

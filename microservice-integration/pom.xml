@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>microservice</artifactId>
+        <groupId>com.genesis</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <packaging>pom</packaging>
+    <modules>
+        <module>microservice-integration-feign</module>
+        <module>microservice-integration-redis</module>
+        <module>microservice-integration-swagger2</module>
+        <module>microservice-integration-mybatis</module>
+        <module>microservice-integration-springextension</module>
+        <module>microservice-integration-rabbitmq</module>
+        <module>microservice-integration-message</module>
+        <module>microservice-integration-security</module>
+        <module>mircoservice-integration-authresource</module>
+        <module>microservice-integration-weixin</module>
+    </modules>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>microservice-integration</artifactId>
+
+
+</project>

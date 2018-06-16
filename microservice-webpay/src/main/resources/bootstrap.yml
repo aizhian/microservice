@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: microservice-webpay    # 对应microservice-configuration-server所获取的配置文件的{application}
+  cloud:
+    config:
+#      uri: http://config-server:8041/
+      enabled: true
+      profile: dev                      # 指定profile，对应microservice-configuration-server所获取的配置文件中的{profile}
+      label: master                     # 指定git仓库的分支，对应microservice-configuration-server所获取的配置文件的{label}
+      discovery:
+        enabled: true
+        service-id: microservice-config-server
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery1:8861/eureka/,http://discovery2:8862/eureka/

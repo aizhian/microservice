@@ -1,0 +1,39 @@
+server:
+  port: 8020
+  contextPath: /uaa
+spring:
+  application:
+    name: microservice-integration-security
+security:
+  ignored: /css/**,/js/**,/favicon.ico,/webjars/**
+  oauth2:
+    client:
+      clientId: acme
+      clientSecret: acmesecret
+      authorized-grant-types: authorization_code,refresh_token,password
+      scope: openid
+      token:
+        keystoreClassPath: keystore.jks
+        keystorePassword: keystore
+        alias: security
+        aliasPassword: security
+    authorization:
+      checkTokenAccess: isAuthenticated()
+      tokenKeyAccess: permitAll()
+  user:
+    name: admin
+    password: password
+
+eureka:
+  instance:
+    preferIpAddress: false
+    hostname: www.genesis.com
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    healthcheck:
+      enabled: true
+    serviceUrl:
+      defaultZone: http://discovery1:8861/eureka/,http://discovery2:8862/eureka/
+    region: chengdu #所属地区
+    availabilityZones: #配置所有地区的有效zone
+      chengdu: sichuan-zone

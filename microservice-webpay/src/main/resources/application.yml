@@ -1,0 +1,37 @@
+server:
+  port: 8030
+  session:
+    timeout: 30
+spring:
+  profiles: chengdu-1
+  application:
+    name: microservice-webpay
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery1:8861/eureka/,http://discovery2:8862/eureka/    # 指定注册中心的地址
+  instance:
+    preferIpAddress: false
+    hostname: www.genesis.com
+    instance-id: ${spring.application.name}:${server.port}
+    metadataMap:
+      zone: sichuan-zone #用于定位服务器区域
+---
+server:
+  port: 8031
+  session:
+    timeout: 30
+spring:
+  profiles: chengdu-2
+  application:
+    name: microservice-webpay
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discovery1:8861/eureka/,http://discovery2:8862/eureka/    # 指定注册中心的地址
+  instance:
+    preferIpAddress: false
+    hostname: www.genesis.com
+    instance-id: ${spring.application.name}:${server.port}
+    metadataMap:
+      zone: sichuan-zone #用于定位服务器区域

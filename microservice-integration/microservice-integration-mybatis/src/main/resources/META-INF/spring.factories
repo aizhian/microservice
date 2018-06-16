@@ -1,0 +1,4 @@
+# Auto Configuration
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.genesis.microservice.integration.mybatis.configration.MybatisAutoConfigration,\
+com.genesis.microservice.integration.mybatis.configration.TkMybatisMapperScanConfigration

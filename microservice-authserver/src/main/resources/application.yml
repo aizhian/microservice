@@ -1,0 +1,68 @@
+---
+logging.level.root: debug
+server:
+  port: 9999
+  context-path: /uaa
+security:
+  sessions: if-required
+spring:
+  application:
+    name: microservice-authserver
+  profiles: dev
+  datasource:
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    driver-Class-Name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.248.143:3306/genesis01?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;useSSL=false
+    username: root
+    password: 123456
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    maxIdle: 192
+    minIdle: 64
+    maxActive: 256
+    maxWait: 30000
+    timeBetweenEvictionRunsMillis: 60000
+    numTestsPerEvictionRun: 20
+    minEvictableIdleTimeMillis: 300000
+eureka:
+  instance:
+    preferIpAddress: false
+    hostname: www.genesis.com
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://discovery1:8861/eureka/,http://discovery2:8862/eureka/    # 指定注册中心的地址
+
+---
+server:
+  port: 9999
+  context-path: /uaa
+security:
+  sessions: if-required
+spring:
+  application:
+    name: microservice-authserver
+  profiles: prod
+  datasource:
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    driver-Class-Name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://192.168.249.199:3306/microservice?useUnicode=true&amp;characterEncoding=UTF-8&amp;autoReconnect=true&amp;failOverReadOnly=false&amp;useSSL=false
+    username: truck
+    password: jjb910123
+    testWhileIdle: true
+    validationQuery: SELECT 1
+    maxIdle: 192
+    minIdle: 64
+    maxActive: 256
+    maxWait: 30000
+    timeBetweenEvictionRunsMillis: 60000
+    numTestsPerEvictionRun: 20
+    minEvictableIdleTimeMillis: 300000
+eureka:
+  instance:
+    preferIpAddress: false
+    hostname: www.genesis.com
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://discovery1:8861/eureka/,http://discovery2:8862/eureka/    # 指定注册中心的地址

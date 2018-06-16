@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html;charset=UTF-8"/>
+    <title>Springboot login</title>
+</head>
+<body>
+
+<p th:if="${param.logout}" class="error-code">已成功注销</p>
+<p th:if="${param.error}" class="error-code">有错误，请重试</p>
+
+<form class="form-signin" th:action="@{/login}" action="/login" method="POST">
+    <h2 class="form-signin-heading">Welcome to Springboot</h2>
+    <input type="text" class="form-control" name="username" value="" placeholder="账号" />
+    <input type="password" class="form-control" name="password" placeholder="密码" />
+    <input type="hidden" id="csrf_token" name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,23 @@
+---
+server:
+  port: 8090
+spring:
+  profiles: configServer
+  application:
+    name: microservice-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/aizhian/config-repo/
+          #search-paths:
+          #username:
+          #password:
+eureka:
+  instance:
+    preferIpAddress: false
+    hostname: www.genesis.com
+    instance-id: ${spring.application.name}:${server.port}
+  client:
+    serviceUrl:
+      defaultZone: http://discovery1:8861/eureka/,http://discovery2:8862/eureka/    # 指定注册中心的地址

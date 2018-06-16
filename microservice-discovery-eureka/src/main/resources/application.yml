@@ -1,0 +1,38 @@
+---
+spring:
+  profiles: discovery1                              # 指定profile=discovery1
+  application:
+    name: microservice-discovery
+server:
+  port: 8861
+eureka:
+  instance:
+    hostname: discovery1                             # 指定当profile=discovery1，主机名
+    instance-id: ${spring.application.name}:${server.port}
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 5000
+  client:
+    serviceUrl:
+      defaultZone: http://discovery2:8862/eureka/      # 将自己注册到eureka2这个Eureka上面去
+    healthcheck:
+      enabled: true
+---
+spring:
+  profiles: discovery2
+  application:
+    name: microservice-discovery
+server:
+  port: 8862
+eureka:
+  instance:
+    hostname: discovery2
+    instance-id: ${spring.application.name}:${server.port}
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 5000
+  client:
+    serviceUrl:
+      defaultZone: http://discovery1:8861/eureka/
+    healthcheck:
+      enabled: true
